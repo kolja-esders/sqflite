@@ -656,11 +656,9 @@ mixin SqfliteDatabaseMixin implements SqfliteDatabase {
           openTransaction = sqfliteTransaction;
 
           final int oldVersion = await getVersion();
-          if (oldVersion == null || oldVersion == 0) {
+          if (oldVersion == null) {
             if (options.onCreate != null) {
               await options.onCreate(this, options.version);
-            } else if (options.onUpgrade != null) {
-              await options.onUpgrade(this, 0, options.version);
             }
           } else if (options.version > oldVersion) {
             if (options.onUpgrade != null) {
